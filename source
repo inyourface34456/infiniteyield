@@ -6283,7 +6283,7 @@ local TeleportCheck = false
 Players.LocalPlayer.OnTeleport:Connect(function(State)
 	if KeepInfYield and (not TeleportCheck) and queueteleport then
 		TeleportCheck = true
-		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/enhansed/source'))()")
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/master/source'))()")
 	end
 end)
 
@@ -12712,7 +12712,7 @@ IYMouse.Move:Connect(checkTT)
 
 task.spawn(function()
 	local success, latestVersionInfo = pcall(function() 
-		local versionJson = game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/enhansed/version')
+		local versionJson = game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/master/version')
 		return HttpService:JSONDecode(versionJson)
 	end)
 
