@@ -4706,6 +4706,9 @@ CMDs[#CMDs + 1] = {NAME = 'promptr6', DESC = 'Prompts the game to switch your ri
 CMDs[#CMDs + 1] = {NAME = 'promptr15', DESC = 'Prompts the game to switch your rig type to R15'}
 CMDs[#CMDs + 1] = {NAME = 'wallwalk / walkonwalls', DESC = 'Walk on walls'}
 CMDs[#CMDs + 1] = {NAME = 'removeads / adblock', DESC = 'Automatically removes ad billboards'}
+CMDs[#CMDs + 1] = {NAME = 'hideplayers / hplyrs', DESC = 'Hides all charater models'}
+CMDs[#CMDs + 1] = {NAME = 'hydroxide / hyd', DESC = 'Opens Hydroxide'}
+CMDs[#CMDs + 1] = {NAME = 'secureexplorer / securedex', DESC = 'Opens Secure Dex Explorer'}
 wait()
 
 for i = 1, #CMDs do
@@ -6280,7 +6283,7 @@ local TeleportCheck = false
 Players.LocalPlayer.OnTeleport:Connect(function(State)
 	if KeepInfYield and (not TeleportCheck) and queueteleport then
 		TeleportCheck = true
-		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/enhansed/source'))()")
 	end
 end)
 
@@ -7221,6 +7224,11 @@ addcmd('unfloat',{'nofloat','unplatform','noplatform'},function(args, speaker)
 		eDown:Disconnect()
 		floatDied:Disconnect()
 	end
+end)
+
+addcmd('secureexplorer', {'securedex'}, function(args, speaker)
+    notify('Loading', 'Hold on a sec')
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
 end)
 
 addcmd('togglefloat',{},function(args, speaker)
@@ -10348,6 +10356,16 @@ addcmd('whisper',{'pm'},function(args, speaker)
 	end
 end)
 
+addcmd('hydroxide',{'hyd'},function(args, speaker)
+	--full credits to ARSON
+	local function webImport(file)
+    		return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/%s.lua"):format(file)), file .. '.lua')()
+	end
+
+	webImport("init")
+	webImport("ui/main")
+end)
+
 pmspamming = {}
 addcmd('pmspam',{},function(args, speaker)
 	local players = getPlayer(args[1], speaker)
@@ -12358,6 +12376,24 @@ addcmd('thawunanchored',{'thawua','unfreezeunanchored','unfreezeua'},function(ar
     frozenParts = {}
 end)
 
+addcmd("hideplayers", {"hplyrs"}, function(args, speaker)
+	local players = game:GetService("Players")
+	local player = players.LocalPlayer or players.PlayerAdded:Wait()
+
+	for i, plr in pairs(players:GetPlayers()) do
+		if plr.Name ~= speaker.Name then
+			local char = plr.Character
+			for i, child in pairs(char:GetChildren()) do
+				if child:IsA("Part") or child:IsA("MeshPart") then
+					child.Transparency = 1
+				elseif child:IsA("Accessory") then
+					child:FindFirstChild("Handle").Transparency = 1
+				end
+			end
+		end
+	end
+end)
+
 addcmd('tpunanchored',{'tpua'},function(args, speaker)
     local players = getPlayer(args[1], speaker)
     for i,v in pairs(players) do
@@ -12676,7 +12712,7 @@ IYMouse.Move:Connect(checkTT)
 
 task.spawn(function()
 	local success, latestVersionInfo = pcall(function() 
-		local versionJson = game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version')
+		local versionJson = game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/enhansed/version')
 		return HttpService:JSONDecode(versionJson)
 	end)
 
