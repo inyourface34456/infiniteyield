@@ -4293,6 +4293,10 @@ function autoComplete(str,curText)
 end
 
 CMDs = {}
+CMDs[#CMDs + 1] = {NAME = 'aimbot', DESC = 'opens aimbot'}
+CMDs[#CMDs + 1] = {NAME = 'hideplayers / hplyrs', DESC = 'Hides all charater models'}
+CMDs[#CMDs + 1] = {NAME = 'hydroxide / hyd', DESC = 'Opens Hydroxide'}
+CMDs[#CMDs + 1] = {NAME = 'secureexplorer / securedex', DESC = 'Opens Secure Dex Explorer'}
 CMDs[#CMDs + 1] = {NAME = 'discord / support / help', DESC = 'Invite to the Infinite Yield support server.'}
 CMDs[#CMDs + 1] = {NAME = 'console', DESC = 'Loads Roblox console'}
 CMDs[#CMDs + 1] = {NAME = 'oldconsole', DESC = 'Loads old Roblox console'}
@@ -6279,7 +6283,7 @@ local TeleportCheck = false
 Players.LocalPlayer.OnTeleport:Connect(function(State)
 	if KeepInfYield and (not TeleportCheck) and queueteleport then
 		TeleportCheck = true
-		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'))()")
+		queueteleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/master/source'))()")
 	end
 end)
 
@@ -6854,6 +6858,43 @@ addcmd('togglenoclip',{},function(args, speaker)
 		execCmd('noclip')
 	else
 		execCmd('clip')
+	end
+end)
+
+addcmd('secureexplorer', {'securedex'}, function(args, speaker)
+    notify('Loading', 'Hold on a sec')
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Babyhamsta/RBLX_Scripts/main/Universal/BypassedDarkDexV3.lua", true))()
+end)
+
+addcmd('aimbot', {}, function(args, speaker)
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/Exunys/AirHub/main/AirHub.lua"))()
+end)
+
+addcmd('hydroxide',{'hyd'},function(args, speaker)
+	--full credits to ARSON
+	local function webImport(file)
+    		return loadstring(game:HttpGetAsync(("https://raw.githubusercontent.com/Upbolt/Hydroxide/revision/%s.lua"):format(file)), file .. '.lua')()
+	end
+
+	webImport("init")
+	webImport("ui/main")
+end)
+
+addcmd("hideplayers", {"hplyrs"}, function(args, speaker)
+	local players = game:GetService("Players")
+	local player = players.LocalPlayer or players.PlayerAdded:Wait()
+
+	for i, plr in pairs(players:GetPlayers()) do
+		if plr.Name ~= speaker.Name then
+			local char = plr.Character
+			for i, child in pairs(char:GetChildren()) do
+				if child:IsA("Part") or child:IsA("MeshPart") then
+					child.Transparency = 1
+				elseif child:IsA("Accessory") then
+					child:FindFirstChild("Handle").Transparency = 1
+				end
+			end
+		end
 	end
 end)
 
@@ -12675,7 +12716,7 @@ IYMouse.Move:Connect(checkTT)
 
 task.spawn(function()
 	local success, latestVersionInfo = pcall(function() 
-		local versionJson = game:HttpGet('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/version')
+		local versionJson = game:HttpGet('https://raw.githubusercontent.com/inyourface34456/infiniteyield/refs/heads/master/version')
 		return HttpService:JSONDecode(versionJson)
 	end)
 
