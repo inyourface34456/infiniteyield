@@ -4293,6 +4293,7 @@ function autoComplete(str,curText)
 end
 
 CMDs = {}
+CMDs[#CMDs + 1] = {NAME = "unamedesp / unesp", DESC = "opens esp"}
 CMDs[#CMDs + 1] = {NAME = 'aimbot', DESC = 'opens aimbot'}
 CMDs[#CMDs + 1] = {NAME = 'hideplayers / hplyrs', DESC = 'Hides all charater models'}
 CMDs[#CMDs + 1] = {NAME = 'hydroxide / hyd', DESC = 'Opens Hydroxide'}
@@ -6319,6 +6320,11 @@ addcmd('removealias',{},function(args, speaker)
 		refreshaliases()
 	end
 end)
+
+addcmd('unnamedesp',{'unesp'},function(args, speaker)
+	pcall(function() loadstring(game:HttpGet('https://raw.githubusercontent.com/ic3w0lf22/Unnamed-ESP/master/UnnamedESP.lua'))() end)
+end)
+
 
 addcmd('clraliases',{},function(args, speaker)
 	customAlias = {}
